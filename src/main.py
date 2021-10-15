@@ -83,6 +83,24 @@ def show_planet(planet_id):
     serialize=planet.serialize()
     return jsonify(serialize),200
 
+@app.route('/users', methods=['GET'])
+def show_users():
+    users = Users.query.all()
+    users_all = []
+    for user in users:
+        users_all.append(user.serialize())
+    return jsonify({"users": users_all}),200
+
+@app.route("/people",methods=['POST'])
+def create_people ():
+    json = request.get_json()
+    people = People()
+    people.set_with_json(json)
+    people.db_post()
+    return jsonify(people.serialize())
+
+
+
 @app.route('/login', methods=['POST'])
 def handle_login():
     print("@@@")

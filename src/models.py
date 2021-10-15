@@ -64,4 +64,21 @@ class People(db.Model):
             # do not serialize the password, its a security breach
         }
     
+    def db_post(self):        
+        db.session.add(self)
+        db.session.commit()
+
+
+    def put_with_json(self,json):
+        if json["name"]:
+            self.name = json["name"]
+        if json["eye_color"]:
+            self.eye_color = json["eye_color"]
+     
+
+    def set_with_json(self,json):
+        self.name = json["name"]
+        self.eye_color = json["eye_color"]
+        self.hair_color = json["hair_color"]
+        self.gender = json["gender"]
 
